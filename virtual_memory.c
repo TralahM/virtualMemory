@@ -213,16 +213,18 @@ int main(int argc, char* argv[]) {
                     first_index = 0;
                 }
                 CurrentFrame[first_index] = tmp;
+                // Count number of reads and writes
                 if (operation == 'R') {
                     nReads++;
                 } else if (operation == 'W') {
                     nWrites++;
                 }
             }
-            for (int i = 0; i < pageFrames; i++) {
-                printf("%x\t", CurrentFrame[i].address);
-            }
-            printf("\n");
+            // To see the contents on every iteration uncomment the lines below
+            /* for (int i = 0; i < pageFrames; i++) { */
+            /*     printf("%x\t", CurrentFrame[i].address); */
+            /* } */
+            /* printf("\n"); */
         }
     } else if ((strcmp(argv[3], "lru")) == 0) {
         while ((numRead = readLine(fd, buf, BUF_SIZE)) > 0) {
@@ -269,16 +271,18 @@ int main(int argc, char* argv[]) {
             }
             if (!exists) {
                 CurrentFrame[cix] = tmp;
+                // Count number of reads and writes
                 if (operation == 'R') {
                     nReads++;
                 } else if (operation == 'W') {
                     nWrites++;
                 }
             }
-            for (int i = 0; i < pageFrames; i++) {
-                printf("%x\t", CurrentFrame[i].address);
-            }
-            printf("\n");
+            // To see the contents on every iteration uncomment the lines below
+            /* for (int i = 0; i < pageFrames; i++) { */
+            /*     printf("%x\t", CurrentFrame[i].address); */
+            /* } */
+            /* printf("\n"); */
         }
     } else {
         usage(argv[0]);
@@ -287,11 +291,12 @@ int main(int argc, char* argv[]) {
     if (numRead == -1) {
         printf("Error Reading file: %s\n", argv[1]);
     }
+
+    // Close the file
     if (close(fd) == -1) {
         printf("Error closing file\n");
         exit(1);
     }
-    // Count number of reads and writes
     printf("Contents of page frames\n");
     for (int i = 0; i < pageFrames; i++) {
         printf("%x\t", CurrentFrame[i].address);
